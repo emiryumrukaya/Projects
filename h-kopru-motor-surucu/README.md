@@ -1,6 +1,6 @@
 # H-Köprü DC Motor Sürücü Kartı (24 V / 10 A)
 
-**Durum:** Çalışır prototip · Elektronik Devre Tasarımı dersi · 3 kişilik ekip (tasarım ve üretimin büyük bölümü bende) · Fakülte sempozyumunda sunuldu
+**Durum:** Çalışır prototip · Elektronik Devre Tasarımı dersi · 2 kişilik ekip (tasarım ve üretimin büyük bölümü bende) · Fakülte sempozyumunda sunuldu
 
 240 W, 24 V fırçalı DC motoru Arduino Uno ile süren kart. Hız potansiyometreyle, yön anahtarla seçiliyor.
 

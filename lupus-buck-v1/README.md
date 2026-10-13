@@ -2,15 +2,15 @@
 
 **Durum:** Üretim öncesi (tasarım, hesap ve simülasyon tamam; kart henüz üretilmedi) · Lupus Rover Team · 2026
 
-Rover'ın 7S Li-ion paketinden (20–29,4 V) Jetson Orin, STM32 ve LiDAR gibi alt sistemleri besleyen kart.
+Rover'ın 7S Li-ion paketinden (20–29,4 V) alt sistemleri besleyen kart: 12 V hattı Jetson Orin NX ve LiDAR gibi aviyonik yükleri, 24 V hattı motor sürücüleri (NEMA17) ve PoE cihazlarını besliyor.
 
 ![3B görünüm](images/3b.jpg)
 
-| Hat | Kontrolcü | Topoloji | Akım |
-|---|---|---|---|
-| 24 V | LM5175 | Buck-boost | 6 A |
-| 12 V | LM25117 | Senkron buck | 15 A |
-| 5 V | TPS54560 | Asenkron buck | 5 A |
+| Hat | Kontrolcü | Topoloji | Akım | Yük |
+|---|---|---|---|---|
+| 24 V | LM5175 | Buck-boost | 6 A | Motor sürücüleri, PoE |
+| 12 V | LM25117 | Senkron buck | 15 A | Jetson Orin NX, LiDAR |
+| 5 V | TPS54560 | Asenkron buck | 5 A | |
 
 ## 12 V hattı hesapları
 - Anahtarlama frekansı ≈ 248 kHz (R<sub>T</sub> = 20 kΩ)

@@ -2,7 +2,7 @@
 
 **Durum:** Çalışıyor · 2026
 
-Motorobit 12 V enkoderli DC motorun hızını kapalı çevrimde kontrol eden sürücü. Hedef rpm LCD ve butonlarla giriliyor; ölçülen rpm hedefe oturtuluyor. Kartın PCB'sini kendim tasarlayıp ürettim.
+[Motorobit 12 V enkoderli DC motorun](https://www.motorobit.com/12v-encoderli-dc-motor) hızını kapalı çevrimde kontrol eden sürücü. Hedef rpm LCD ve butonlarla giriliyor; ölçülen rpm hedefe oturtuluyor. Kartın PCB'sini kendim tasarlayıp ürettim.
 
 <p>
   <img src="images/kart.jpg" width="300">
@@ -10,11 +10,11 @@ Motorobit 12 V enkoderli DC motorun hızını kapalı çevrimde kontrol eden sü
 </p>
 
 ## Donanım
-- **Mikrodenetleyici:** STM32 (HAL, CubeMX), 72 MHz
+- **Mikrodenetleyici:** STM32F103 (HAL, CubeMX), 8 MHz kristal × 9 = 72 MHz
 - **Güç katı:** 4 N-kanal MOSFET'li tam H-köprü, her kolda bir IR2103 kapı sürücüsü (bootstrap ile üst taraf)
-- **Arayüz:** 16×2 LCD, 4 buton (artır, azalt, başlat/durdur, yön)
+- **Arayüz:** 16×2 HD44780 LCD (4-bit mod, PA0–PA5), 4 buton PB12–PB15 (artır, azalt, başlat/durdur, yön)
 
-## Firmware ([`firmware/main.c`](firmware/main.c))
+## Firmware ([`main.c`](firmware/main.c), [`lcd.c`](firmware/lcd.c), [`lcd.h`](firmware/lcd.h))
 | Bölüm | Uygulama |
 |---|---|
 | PWM | TIM1, 72 MHz / 3600 = **20 kHz**. Görev oranı %95 ile sınırlı; böylece bootstrap kondansatörü her periyotta dolabiliyor (`PWM_MAX`). |
@@ -34,4 +34,4 @@ Motorun enkoderinin bir kanalı arızalı çıktı, bu yüzden timer'ın iki kan
 | <img src="images/osiloskop_kapi_sinyalleri.jpg" width="380"><br>IR2103 çıkışları: mavi üst taraf, sarı alt taraf | <img src="images/osiloskop_olu_zaman.jpg" width="380"><br>Geçiş anı yakın çekim: ölü zaman |
 | <img src="images/osiloskop_20khz.jpg" width="380"><br>50 rpm hedefinde kapı sinyali, 20 kHz | <img src="images/osiloskop_pwm_50.jpg" width="380"><br>%50 görev oranı: sarı PWM, mavi motor gerilimi |
 
-> Not: Repoda şimdilik yalnızca `main.c` var. LCD sürücüsü (`lcd.h/.c`) ve CubeMX proje dosyaları eklenecek.
+> Not: LCD sürücüsünü (`lcd.c`) HAL üzerinde kendim yazdım. CubeMX proje dosyası (`.ioc`) repoda yok; çevre birimi ayarları `main.c` içindeki `MX_..._Init` fonksiyonlarında.
