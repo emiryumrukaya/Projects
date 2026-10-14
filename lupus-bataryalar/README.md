@@ -2,7 +2,7 @@
 
 **Durum:** Araçta kullanılıyor · Lupus Rover Team · 2026 · Takım arkadaşım Can ile birlikte ürettik
 
-Rover için iki Li-ion paket ürettik. Hücreleri punta kaynağıyla nikel şeritlerle bağladık. Her pakette bir Daly R24TM serisi (150 A) akıllı BMS var.
+Rover için iki Li-ion paket ürettik. Hücreleri punta kaynağıyla nikel şeritlerle bağladık. Her pakette bir Daly R24TM serisi (150 A) akıllı BMS var; iki paketin çıkışı da XT90.
 
 | | 12S8P paket | 7S7P paket |
 |---|---|---|
@@ -22,4 +22,4 @@ Rover için iki Li-ion paket ürettik. Hücreleri punta kaynağıyla nikel şeri
 | | |
 |---|---|
 | <img src="images/7s_montaj_bms.jpg" width="420"><br>7S paketin montajı: hücre tutucular, punta kaynaklı nikel şeritler, denge kabloları ve Daly BMS | <img src="images/12s_paket.jpg" width="420"><br>12S paket, makaronla kaplanmış hâli |
-| <img src="images/12s_kutu.jpg" width="320"><br>12S paket, XT konnektör çıkışlı kutusunda | |
+| <img src="images/12s_kutu.jpg" width="320"><br>12S paket, XT90 çıkışlı kutusunda | |
