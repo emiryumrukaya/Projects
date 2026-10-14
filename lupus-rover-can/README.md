@@ -4,6 +4,10 @@
 
 Rover'daki GPS, batarya yönetim sistemi (BMS), motor sürücüleri, mikrodenetleyiciler ve Jetson Orin tek bir CAN hattını paylaşıyor. Hattı ben kurdum; bu klasördeki ESP32 yazılımlarını ben yazdım.
 
+<img src="images/elektronik_bolmesi.jpg" width="380">
+
+*Rover'ın elektronik bölmesi: STM32 Discovery, motor sürücü kartları, HSD57 hibrit servo sürücü ve batarya kutusu.*
+
 ## Hat yapısı
 
 ```mermaid

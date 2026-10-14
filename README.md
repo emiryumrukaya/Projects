@@ -2,6 +2,13 @@
 
 Selçuk Üniversitesi Elektrik-Elektronik Mühendisliği 4. sınıf öğrencisiyim. Lupus Rover Team'in elektronik takım kaptanıyım. Bu repoda güç elektroniği ve gömülü sistemler projelerimin kodları, şemaları, PCB'leri ve ölçüm sonuçları duruyor.
 
+<p>
+  <img src="images/rover_on.jpg" width="300">
+  <img src="images/rover_teknofest.jpg" width="190">
+</p>
+
+*Lupus rover: solda atölyede, sağda TEKNOFEST 2026 alanında.*
+
 *Hardware & embedded projects: motor drivers, a multi-output DC-DC power board and rover battery packs and a rover CAN bus. Docs are in Turkish; code comments are mostly Turkish.*
 
 | Proje | Durum | İçerik |
