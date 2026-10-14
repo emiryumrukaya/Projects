@@ -47,11 +47,11 @@ flowchart LR
 ## Dosyalar
 | Klasör | Ne yapıyor |
 |---|---|
-| [`firmware/rover_ana_dugum/`](firmware/rover_ana_dugum/) | Araçtaki ana ESP32. Here4 ve BMS'i okuyup Orin'e özet gönderiyor; SBUS'tan acil durdurma ve mod seçimi; taret ve anten step motorları; BNO055 ile anten yön takibi. |
+| [`firmware/rover_ana_dugum/`](firmware/rover_ana_dugum/) | Ana ESP32 düğümünün Eylül 2026 tarihli ara sürümü. Here4 ve BMS'i okuyup Orin'e özet gönderiyor; SBUS'tan acil durdurma ve mod seçimi; taret ve anten step motorları; BNO055 ile anten yön takibi. |
 | [`firmware/bms_okuma/`](firmware/bms_okuma/) | Daly BMS'i tek başına sorgulayıp JSON basan test kodu. |
 | [`firmware/can_dinleyici/`](firmware/can_dinleyici/) | Hattaki tüm çerçeveleri filtresiz basan dinleyici; düğüm ID'lerini ve DroneCAN mesaj türlerini görmek için kullandım. |
 | [`kutuphane_yamasi/`](kutuphane_yamasi/) | DroneCAN_ESP32 kütüphanesine yaptığım değişiklik. |
 
-Orin tarafındaki köprü programı (`can_bridge.cpp`) araçtaki bilgisayarda kaldığı için bu repoda yok.
+Araçta çalışan son sürüm (ince ve kaba step kontrolü ile özel hassasiyet ayarı eklenmiş hâli) ile Orin tarafındaki köprü programı (`can_bridge.cpp`) başka bilgisayarlarda kaldığı için henüz bu repoda yok; bulununca eklenecek.
 
 **Gerekli kütüphaneler (Arduino IDE):** DroneCAN_ESP32 (yamalı), ACAN_ESP32, Bolder Flight Systems SBUS, Adafruit BNO055, Adafruit Unified Sensor; test kodları için ESP32-TWAI-CAN.
