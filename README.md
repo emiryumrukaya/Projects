@@ -10,4 +10,6 @@ Selçuk Üniversitesi Elektrik-Elektronik Mühendisliği 4. sınıf öğrencisiy
 | [H-Köprü DC Motor Sürücü](h-kopru-motor-surucu/) — ders projesi, 2 kişilik ekip | Çalışır prototip | 24 V / 10 A P-N köprü, KiCad şema ve PCB, Arduino kodu |
 | [Lupus Buck-V1](lupus-buck-v1/) — rover güç kartı | Üretim öncesi | 24 / 12 / 5 V çıkışlı güç kartı, tasarım hesapları, LTspice sonuçları |
 
+Her klasörde aynı yapı var: `README.md` (projenin özeti ve sonuçları), `firmware/` (kod), `hardware/` (şema ve PCB, varsa) ve `images/` (fotoğraflar, ölçümler).
+
 İletişim: memiryumrukaya@gmail.com
