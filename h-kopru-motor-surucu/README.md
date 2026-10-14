@@ -22,7 +22,7 @@
 | | |
 |---|---|
 | <a href="video/delikli_plaka.mp4"><img src="images/video_delikli_kapak.jpg" width="220"></a> | <a href="video/pcb_calisma.mp4"><img src="images/video_pcb_kapak.jpg" width="220"></a> |
-| [`delikli_plaka.mp4`](video/delikli_plaka.mp4) (50 s): kartın PCB öncesi delikli plaka prototipi, motoru sürerken | [`pcb_calisma.mp4`](video/pcb_calisma.mp4) (10 s): üretilen PCB'nin çalışması |
+| [`delikli_plaka.mp4`](video/delikli_plaka.mp4) (50 s): kartın PCB öncesi delikli plaka prototipi, motoru sürerken | [`pcb_calisma.mp4`](video/pcb_calisma.mp4) (7 s): üretilen PCB'nin çalışması |
 
 ## Kontrol ([`firmware/motor_surucu.ino`](firmware/motor_surucu.ino))
 - Üst taraf yalnızca yön için aç/kapa; PWM alt taraftan veriliyor.

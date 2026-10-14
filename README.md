@@ -27,4 +27,6 @@ Selçuk Üniversitesi Elektrik-Elektronik Mühendisliği 4. sınıf öğrencisiy
 
 Klasörlerin yapısı: `README.md` (projenin özeti ve sonuçları), `firmware/` (kod), `hardware/` (şema ve PCB, varsa) ve `images/` (fotoğraflar, ölçümler).
 
+Tüm projelerin özeti tek dosyada: [Proje portfolyosu (PDF)](Mustafa_Emir_Yumrukaya_Portfolyo.pdf)
+
 İletişim: memiryumrukaya@gmail.com
