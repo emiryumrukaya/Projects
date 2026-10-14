@@ -332,7 +332,7 @@ void here4ParamYaz(uint8_t node_id, int64_t deger) {
 //   bit1 = (kullanilmiyor)
 //   bit2 = sbus switch (kanal 5)
 //   bit3 = sbus zaman asimi/failsafe
-//   bit4 = otonom mod aktif (kanal 10 == -100)
+//   bit4 = otonom mod aktif (kanal 10 == +100)
 //   bit5 = taret modu aktif (kanal 10 == 0)
 //   bit6-7 = bos
 // Su anki durumu hesaplayip global bayraklara yazar. Bu fonksiyon CAN gonderiminden

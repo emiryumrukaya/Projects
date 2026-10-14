@@ -6,9 +6,10 @@ Rover için iki Li-ion paket ürettik. Hücreleri punta kaynağıyla nikel şeri
 
 | | 12S8P paket | 7S7P paket |
 |---|---|---|
-| Hücre | 4000 mAh Li-ion, 96 adet | 2400 mAh Li-ion, 49 adet |
+| Hücre | DMEGC 21700, 4500 mAh, 3C · 96 adet | INR18650-M26S, 2600 mAh, 3C · 49 adet |
 | Gerilim aralığı (3,0–4,2 V/hücre) | 36–50,4 V (nominal 43,2 V) | 21–29,4 V (nominal 25,2 V) |
-| Kapasite | 32 Ah (≈ 1,4 kWh) | 16,8 Ah (≈ 0,42 kWh) |
+| Kapasite | 36 Ah (≈ 1,56 kWh) | 18,2 Ah (≈ 0,46 kWh) |
+| Sürekli deşarj (hücre 3C) | ≈ 108 A | ≈ 55 A |
 | BMS | Daly R24TM, 150 A | Daly R24TM, 150 A |
 
 *Nominal gerilim ve enerji, hücre başına 3,6 V nominal alınarak hesaplandı.*

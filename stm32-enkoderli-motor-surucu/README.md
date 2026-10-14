@@ -9,6 +9,18 @@
   <img src="images/pcb.jpg" width="230">
 </p>
 
+## Çalışma videosu
+<a href="video/calisma.mp4"><img src="images/video_kapak.jpg" width="260"></a>
+
+[`video/calisma.mp4`](video/calisma.mp4) (69 s): hedef butonlarla değiştiriliyor, LCD'de hedef (H) ve ölçülen hız (R) görünüyor. Videodan okunan değerler:
+
+| Hedef | Ölçülen | Yön | Görev oranı |
+|---|---|---|---|
+| 10 rpm | 9,7 rpm | İleri | %16 |
+| 20 rpm | 20,3 rpm | İleri | %25 |
+| 60 rpm | 60,7 rpm | İleri | %77 |
+| 55 rpm | 53,8 rpm | Geri | %63 |
+
 ## Donanım
 - **Mikrodenetleyici:** STM32F103C8 (HAL, CubeMX), 8 MHz kristal × 9 = 72 MHz
 - **Güç katı:** 4 N-kanal MOSFET'li tam H-köprü, her kolda bir IR2103 kapı sürücüsü (bootstrap ile üst taraf)
