@@ -6,7 +6,7 @@ Rover'daki GPS, batarya yönetim sistemi (BMS), motor sürücüleri, mikrodenetl
 
 <img src="images/elektronik_bolmesi.jpg" width="380">
 
-*Rover'ın elektronik bölmesi: STM32 Discovery, motor sürücü kartları, HSD57 hibrit servo sürücü ve batarya kutusu.*
+*Rover'ın elektronik bölmesi: STM32 Discovery, motor sürücü kartları, HSD57 hibrit servo sürücü ve sağda turuncu kutusu içinde 7S7P batarya paketi.*
 
 ## Hat yapısı
 
