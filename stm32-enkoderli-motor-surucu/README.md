@@ -12,7 +12,7 @@
 ## Çalışma videosu
 <a href="video/calisma.mp4"><img src="images/video_kapak.jpg" width="260"></a>
 
-[`video/calisma.mp4`](video/calisma.mp4) (69 s): hedef butonlarla değiştiriliyor, LCD'de hedef (H) ve ölçülen hız (R) görünüyor. Videodan okunan değerler:
+[`video/calisma.mp4`](video/calisma.mp4) (69 s): hedef butonlarla değiştiriliyor, LCD'de hedef (H) ve ölçülen hız (R) görünüyor. Video Kp = 40, Ki = 150, Kd = 0 ve ileri besleme açıkken çekildi. Videodan okunan değerler:
 
 | Hedef | Ölçülen | Yön | Görev oranı |
 |---|---|---|---|
