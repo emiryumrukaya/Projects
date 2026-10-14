@@ -37,9 +37,15 @@
 #define YON_BEKLEME_MS 500      /* yon degisiminde frenli bekleme */
 #define KONTROL_MS     50       /* olcum + kontrol periyodu */
 #define REF_RAMPA      4.0f     /* rpm / 50 ms  ->  80 rpm/s */
-#define KFF            (3599 / 80.0f)   /* ileri besleme: 80 rpm ~ %95 */
-#define KP             15.0f    /* duty sayaci / rpm */
-#define KI             60.0f    /* duty sayaci / (rpm*s) */
+
+/* ======== DENEME AYARLARI: her denemede sadece burayi degistir ======== */
+#define KP             40.0f    /* oransal kazanc   (duty sayaci / rpm)        */
+#define KI             150.0f    /* integral kazanc  (duty sayaci / (rpm*s))    */
+#define KD             0.0f     /* turev kazanc     (duty sayaci / (rpm/s)); deneme 6: 0.5f */
+#define FF_ACIK        1        /* ileri besleme: 1 = acik, 0 = kapali; deneme 7: 0         */
+/* ====================================================================== */
+
+#define KFF            (FF_ACIK ? (3599 / 80.0f) : 0.0f)   /* %100 duty ~ 80 rpm */
 
 /* USER CODE END PD */
 
@@ -62,7 +68,6 @@ uint16_t onceki_sayac    = 0;
 uint32_t olculen_rpm_x10 = 0;
 float ref_rpm  = 0.0f;
 float integral = 0.0f;
-float gosterilen_rpm = 0.0f;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -79,16 +84,16 @@ void Motor_Sur(int8_t y, int32_t duty);
 /* USER CODE BEGIN 0 */
 void Butonlari_Oku(void)
 {
-  static const uint16_t pin[4] = {GPIO_PIN_12, GPIO_PIN_13, GPIO_PIN_14, GPIO_PIN_15};
+  static const uint16_t pin[4] = {GPIO_PIN_12, GPIO_PIN_13, GPIO_PIN_11, GPIO_PIN_15};
   static uint8_t onceki[4] = {1, 1, 1, 1};
 
   for (int i = 0; i < 4; i++) {
     uint8_t simdi = HAL_GPIO_ReadPin(GPIOB, pin[i]);
-    if (onceki[i] == 1 && simdi == 0) {          // sadece basıldığı an
+    if (onceki[i] == 1 && simdi == 0) {
       switch (i) {
         case 0: if (hedef_rpm < 70) hedef_rpm += 5; break;  // SW1 Artır
         case 1: if (hedef_rpm > 0)  hedef_rpm -= 5; break;  // SW2 Azalt
-        case 2: motor_acik = !motor_acik;            break;  // SW3 Başlat/Durdur
+        case 2: motor_acik = !motor_acik;            break;  // SW3 Başlat/Durdur (PB11)
         case 3: yon = -yon;                          break;  // SW4 Yön
       }
     }
@@ -101,8 +106,8 @@ void Motor_Sur(int8_t y, int32_t duty)
   if (duty > PWM_MAX) duty = PWM_MAX;
 
   if (y > 0) {
-    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, duty); /* Motor+ PWM */
-    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, 0);    /* Motor- alt MOSFET acik */
+    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, duty);
+    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, 0);
   } else {
     __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, 0);
     __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, duty);
@@ -147,6 +152,18 @@ int main(void)
   lcd_gotoxy(0, 1); lcd_print("Motor Surucu");
   HAL_Delay(1000);
   lcd_clear();
+
+  /* Deneme ayarlarini 1,5 s goster (fotograf/video icin) */
+  {
+    char bas[33];
+    int kd10 = (int)(KD * 10.0f + 0.5f);
+    snprintf(bas, sizeof bas, "Kp%d Ki%d Kd%d.%d", (int)KP, (int)KI, kd10 / 10, kd10 % 10);
+    lcd_gotoxy(0, 0); lcd_print(bas);
+    lcd_gotoxy(0, 1); lcd_print(FF_ACIK ? "FF: ACIK" : "FF: KAPALI");
+    HAL_Delay(1500);
+    lcd_clear();
+  }
+
   HAL_TIM_Base_Start(&htim4);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
@@ -163,33 +180,31 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	    uint32_t simdi = HAL_GetTick();
-
-	    /* ---- 10 ms: butonlar ---- */
 	    if (simdi - son_tarama >= 10) {
 	      son_tarama += 10;
 	      Butonlari_Oku();
 	    }
 
-	    /* ---- 50 ms: olcum + kontrol ---- */
 	    if (simdi - son_olcum >= KONTROL_MS) {
 	      son_olcum += KONTROL_MS;
-
-	      /* 1) RPM olcumu */
 	      uint16_t sayac = __HAL_TIM_GET_COUNTER(&htim4);
 	      uint16_t fark  = sayac - onceki_sayac;
 	      onceki_sayac   = sayac;
 	      olculen_rpm_x10 = (uint32_t)fark * 12000UL / DARBE_PER_TUR;
 	      float olculen = olculen_rpm_x10 / 10.0f;
-	      gosterilen_rpm += 0.1f * (olculen - gosterilen_rpm);   /* ekran icin ~0.5 s yumusatma */
 
-	      /* 2) hedef: motor kapaliysa ya da yon degisiyorsa 0 */
+	      /* turev olcumden alinir: hedef degisince ani sicrama olmaz */
+	      static float onceki_olculen = 0.0f;
+	      float turev = (olculen - onceki_olculen) / (KONTROL_MS / 1000.0f);   /* rpm/s */
+	      onceki_olculen = olculen;
+
 	      static uint16_t yon_bekleme = 0;
 	      float hedef = motor_acik ? (float)hedef_rpm : 0.0f;
 	      if (uygulanan_yon != yon) {
 	        hedef = 0.0f;
-	        if (ref_rpm == 0.0f && olculen_rpm_x10 == 0) {      /* durdu mu? */
+	        if (ref_rpm == 0.0f && olculen_rpm_x10 == 0) {
 	          yon_bekleme += KONTROL_MS;
-	          if (yon_bekleme >= YON_BEKLEME_MS) {               /* 500 ms fren */
+	          if (yon_bekleme >= YON_BEKLEME_MS) {
 	            uygulanan_yon = yon;
 	            yon_bekleme = 0;
 	          }
@@ -198,7 +213,6 @@ int main(void)
 	        yon_bekleme = 0;
 	      }
 
-	      /* 3) referans rampasi */
 	      if (ref_rpm < hedef) {
 	        ref_rpm += REF_RAMPA;
 	        if (ref_rpm > hedef) ref_rpm = hedef;
@@ -207,21 +221,18 @@ int main(void)
 	        if (ref_rpm < hedef) ref_rpm = hedef;
 	      }
 
-	      /* 4) PI + ileri besleme */
 	      if (ref_rpm <= 0.0f) {
 	        integral = 0.0f;
-	        uygulanan_duty = 0;                      /* iki alt MOSFET acik: fren */
+	        uygulanan_duty = 0;
 	      } else {
 	        float hata = ref_rpm - olculen;
 	        float yeni_integral = integral + KI * hata * (KONTROL_MS / 1000.0f);
-	        float cikis = KFF * ref_rpm + KP * hata + yeni_integral;
-
-	        /* anti-windup: doyumdaysa integrali sadece doyumdan cikaran yonde guncelle */
+	        float cikis = KFF * ref_rpm + KP * hata + yeni_integral - KD * turev;
 	        if ((cikis < PWM_MAX || hata < 0.0f) && (cikis > 0.0f || hata > 0.0f)) {
 	          integral = yeni_integral;
 	        }
 
-	        cikis = KFF * ref_rpm + KP * hata + integral;
+	        cikis = KFF * ref_rpm + KP * hata + integral - KD * turev;
 	        if (cikis < 0.0f)    cikis = 0.0f;
 	        if (cikis > PWM_MAX) cikis = PWM_MAX;
 	        uygulanan_duty = (int32_t)cikis;
@@ -230,10 +241,9 @@ int main(void)
 	      Motor_Sur(uygulanan_yon, uygulanan_duty);
 	    }
 
-	    /* ---- 200 ms: LCD ---- */
 	    if (simdi - son_lcd >= 200) {
 	      son_lcd = simdi;
-	      int g = (int)(gosterilen_rpm * 10.0f + 0.5f);
+	      int g = (int)olculen_rpm_x10;
 	      snprintf(satir, sizeof satir, "H:%2d R:%3d.%d rpm",
 	               (int)hedef_rpm, g / 10, g % 10);
 	      lcd_gotoxy(0, 0); lcd_print(satir);
@@ -245,7 +255,7 @@ int main(void)
 	      lcd_gotoxy(0, 1); lcd_print(satir);
 	    }
 	  }
-	  /* USER CODE END 3 */
+  /* USER CODE END 3 */
 }
 
 /**
@@ -427,24 +437,13 @@ static void MX_GPIO_Init(void)
   /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
-
-  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3
                           |GPIO_PIN_4|GPIO_PIN_5, GPIO_PIN_RESET);
-
-  /*Configure GPIO pin : PC13 */
-  GPIO_InitStruct.Pin = GPIO_PIN_13;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PA0 PA1 PA2 PA3
                            PA4 PA5 */
@@ -455,8 +454,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PB12 PB13 PB14 PB15 */
-  GPIO_InitStruct.Pin = GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14|GPIO_PIN_15;
+  /*Configure GPIO pins : PB11 PB12 PB13 PB15 */
+  GPIO_InitStruct.Pin = GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_15;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
