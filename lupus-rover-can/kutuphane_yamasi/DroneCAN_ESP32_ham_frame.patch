@@ -1,0 +1,54 @@
+--- a/src/DroneCAN_ESP32.cpp
++++ b/src/DroneCAN_ESP32.cpp
+@@ -3,6 +3,7 @@
+ // 静态成员变量定义
+ static bool (*user_should_accept_)(const CanardInstance*, uint64_t*, uint16_t, CanardTransferType, uint8_t) = nullptr;
+ static void (*user_on_reception_)(CanardInstance*, CanardRxTransfer*) = nullptr;
++static void (*user_raw_frame_callback_)(const CanardCANFrame*) = nullptr;
+ 
+ DroneCAN_ESP32::DroneCAN_ESP32()
+     : memory_pool_(nullptr), pool_size_(4096), transfer_id_(0) {
+@@ -158,6 +159,10 @@
+     user_on_reception_ = callback;
+ }
+ 
++void DroneCAN_ESP32::setRawFrameCallback(void (*callback)(const CanardCANFrame* frame)) {
++    user_raw_frame_callback_ = callback;
++}
++
+ void DroneCAN_ESP32::setAcceptCallback(bool (*callback)(const CanardInstance* ins,
+                                                       uint64_t* out_data_type_signature,
+                                                       uint16_t data_type_id,
+@@ -203,11 +208,18 @@
+         CanardCANFrame canard_frame = {};
+         if(rx_frame.ext) {
+             canard_frame.id = rx_frame.id | CANARD_CAN_FRAME_EFF;  // 设置扩展ID标志
++        } else {
++            canard_frame.id = rx_frame.id;
+         }
+         canard_frame.data_len = rx_frame.len;
+         memcpy(canard_frame.data, rx_frame.data, rx_frame.len);
+         canard_frame.iface_id = 0;  // 假设只有一个CAN接口
+ 
++        // EKLENDİ: DroneCAN olsun olmasın, okunan HER ham frame'i kullanıcıya bildir.
++        if (user_raw_frame_callback_ != nullptr) {
++            user_raw_frame_callback_(&canard_frame);
++        }
++
+         //canardHandleRxFrame(&canard_instance_, &canard_frame, micros());
+         //Serial.println("Calling canardHandleRxFrame...");
+         int8_t result = canardHandleRxFrame(&canard_instance_, &canard_frame, micros());
+--- a/src/DroneCAN_ESP32.h
++++ b/src/DroneCAN_ESP32.h
+@@ -46,6 +46,11 @@
+                                           CanardTransferType transfer_type,
+                                           uint8_t source_node_id));
+ 
++    // EKLENDİ: Kütüphanenin ACAN_ESP32 üzerinden okuduğu HER ham CAN frame'i için
++    // çağrılır (DroneCAN olsun olmasın). BMS gibi DroneCAN dışı frame'leri
++    // yakalamak için kullanın.
++    void setRawFrameCallback(void (*callback)(const CanardCANFrame* frame));
++
+ private:
+     CanardInstance canard_instance_;
+     void* memory_pool_;

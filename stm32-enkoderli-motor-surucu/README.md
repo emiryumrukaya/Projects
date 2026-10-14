@@ -10,11 +10,17 @@
 </p>
 
 ## Donanım
-- **Mikrodenetleyici:** STM32F103 (HAL, CubeMX), 8 MHz kristal × 9 = 72 MHz
+- **Mikrodenetleyici:** STM32F103C8 (HAL, CubeMX), 8 MHz kristal × 9 = 72 MHz
 - **Güç katı:** 4 N-kanal MOSFET'li tam H-köprü, her kolda bir IR2103 kapı sürücüsü (bootstrap ile üst taraf)
 - **Arayüz:** 16×2 HD44780 LCD (4-bit mod, PA0–PA5), 4 buton PB12–PB15 (artır, azalt, başlat/durdur, yön)
 
-## Firmware ([`main.c`](firmware/main.c), [`lcd.c`](firmware/lcd.c), [`lcd.h`](firmware/lcd.h))
+## Firmware
+Tam STM32CubeIDE projesi: [`firmware/Bitirme_Projesi/`](firmware/Bitirme_Projesi/). CubeIDE'de *File → Import → Existing Projects* ile açılıp derlenebilir; pin ve saat ayarları [`Bitirme_Projesi.ioc`](firmware/Bitirme_Projesi/Bitirme_Projesi.ioc) içinde.
+
+- Uygulama kodu: [`Core/Src/main.c`](firmware/Bitirme_Projesi/Core/Src/main.c)
+- LCD sürücüsü: [`Core/Src/lcd.c`](firmware/Bitirme_Projesi/Core/Src/lcd.c), [`Core/Inc/lcd.h`](firmware/Bitirme_Projesi/Core/Inc/lcd.h)
+- `Drivers/`: ST'nin HAL ve CMSIS dosyaları (CubeMX'in ürettiği, değiştirilmedi)
+
 | Bölüm | Uygulama |
 |---|---|
 | PWM | TIM1, 72 MHz / 3600 = **20 kHz**. Görev oranı %95 ile sınırlı; böylece bootstrap kondansatörü her periyotta dolabiliyor (`PWM_MAX`). |
@@ -34,4 +40,4 @@ Motorun enkoderinin bir kanalı arızalı çıktı, bu yüzden timer'ın iki kan
 | <img src="images/osiloskop_kapi_sinyalleri.jpg" width="380"><br>IR2103 çıkışları: mavi üst taraf, sarı alt taraf | <img src="images/osiloskop_olu_zaman.jpg" width="380"><br>Geçiş anı yakın çekim: ölü zaman |
 | <img src="images/osiloskop_20khz.jpg" width="380"><br>50 rpm hedefinde kapı sinyali, 20 kHz | <img src="images/osiloskop_pwm_50.jpg" width="380"><br>%50 görev oranı: sarı PWM, mavi motor gerilimi |
 
-> Not: LCD sürücüsünü (`lcd.c`) HAL üzerinde kendim yazdım. CubeMX proje dosyası (`.ioc`) repoda yok; çevre birimi ayarları `main.c` içindeki `MX_..._Init` fonksiyonlarında.
+> Not: LCD sürücüsünü (`lcd.c`) HAL üzerinde kendim yazdım.

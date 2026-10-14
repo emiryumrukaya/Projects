@@ -14,6 +14,8 @@ Rover'ın 7S Li-ion paketinden (20–29,4 V) aracın elektronik alt sistemlerini
 
 Üç hattın anahtarlama frekansları, harmoniklerin çakışmaması için birbirinden ayrık seçildi.
 
+**Koruma:** Batarya girişinde sigorta ve SMCJ30A TVS diyot var. 12 V çıkışında LM5050 ideal diyot denetleyicisi ve iki P80FH5ENK MOSFET'le ters akım koruması var.
+
 ## 12 V hattı hesapları
 - R<sub>T</sub> = 20 kΩ → anahtarlama frekansı ≈ 248 kHz
 - İndüktans 6,6 µH → akım dalgalanması ≈ 4,3 A, tepe akım ≈ 17,2 A
@@ -27,4 +29,11 @@ Rover'ın 7S Li-ion paketinden (20–29,4 V) aracın elektronik alt sistemlerini
 | ![](images/ltspice_induktor_akimi.jpg) | ![](images/ltspice_cikis_gerilimi.jpg) |
 | ≈ 11,2–19 A üçgen dalga | ≈ 11,974–12,022 V, ~50 mV tepe-tepe |
 
-![5 V ve 12 V hatlarının şeması](images/sema_5v_12v.jpg)
+## Şema ve PCB
+KiCad şeması (batarya girişi, 5 V, 12 V ve 24 V hatları): [`hardware/sema.pdf`](hardware/sema.pdf)
+
+![Şema](images/sema.jpg)
+
+PCB yerleşimi (KiCad):
+
+![PCB yerleşimi](images/pcb_yerlesim.jpg)
