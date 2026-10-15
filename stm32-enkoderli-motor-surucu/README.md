@@ -12,13 +12,13 @@
 ## Çalışma videosu
 <a href="video/calisma.mp4"><img src="images/video_kapak.jpg" width="260"></a>
 
-[`video/calisma.mp4`](video/calisma.mp4) (69 s): hedef butonlarla değiştiriliyor, LCD'de hedef (H) ve ölçülen hız (R) görünüyor. Video Kp = 40, Ki = 150, Kd = 0 ve ileri besleme açıkken çekildi. Videodan okunan değerler:
+[`video/calisma.mp4`](video/calisma.mp4) (69 s): hedef butonlarla değiştiriliyor, LCD'de hedef (H) ve ölçülen hız (R) görünüyor. Video Kp = 40, Ki = 150, Kd = 0 ve ileri besleme açıkken çekildi. Videodan okunan değerler (anlık okumalar; 60 rpm hedefte ölçülen hız 59,9–60,1 rpm arasında dalgalanıyor):
 
 | Hedef | Ölçülen | Yön | Görev oranı |
 |---|---|---|---|
 | 10 rpm | 9,7 rpm | İleri | %16 |
 | 20 rpm | 20,3 rpm | İleri | %25 |
-| 60 rpm | 60,7 rpm | İleri | %77 |
+| 60 rpm | 59,9–60,1 rpm | İleri | %77 |
 | 55 rpm | 53,8 rpm | Geri | %63 |
 
 ## Donanım
