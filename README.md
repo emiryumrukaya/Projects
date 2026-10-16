@@ -29,4 +29,4 @@ Klasörlerin yapısı: `README.md` (projenin özeti ve sonuçları), `firmware/`
 
 Tüm projelerin özeti tek dosyada: [Proje portfolyosu (PDF)](Mustafa_Emir_Yumrukaya_Portfolyo.pdf)
 
-İletişim: memiryumrukaya@gmail.com
+İletişim: memiryumrukaya@gmail.com · [LinkedIn](https://www.linkedin.com/in/emir-yumrukaya)
