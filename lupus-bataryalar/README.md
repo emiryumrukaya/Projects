@@ -1,6 +1,6 @@
 # Lupus Rover Batarya Paketleri (12S8P ve 7S7P)
 
-**Durum:** Araçta kullanılıyor · Lupus Rover Team · 2026 · Takım arkadaşım Can ile birlikte ürettik
+**Durum:** Araçta kullanılıyor · Lupus Rover Team · 2026 · Takım arkadaşımla birlikte ürettik
 
 Rover için iki Li-ion paket ürettik. Hücreleri punta kaynağıyla nikel şeritlerle bağladık. Her pakette bir Daly R24TM serisi (150 A) akıllı BMS var; iki paketin çıkışı da XT90. İki paket de farklı boyutlarda turuncu ahşap kutulara yerleştirildi; 7S paket araç gövdesinin içinde, daha büyük olan 12S paket dışarıda duruyor.
 
