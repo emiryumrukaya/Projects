@@ -15,7 +15,7 @@ Selçuk Üniversitesi Elektrik-Elektronik Mühendisliği 4. sınıf öğrencisiy
 
 *Lupus Rover Team, TEKNOFEST 2026 İnsansız Kara Aracı Yarışması.*
 
-*Hardware & embedded projects: motor drivers, a multi-output DC-DC power board and rover battery packs and a rover CAN bus. Docs are in Turkish; code comments are mostly Turkish.*
+*Hardware & embedded projects: motor drivers, a multi-output DC-DC power board, rover battery packs, a rover CAN bus and a hexacopter build. Docs are in Turkish; code comments are mostly Turkish.*
 
 | Proje | Durum | İçerik |
 |---|---|---|
@@ -24,6 +24,7 @@ Selçuk Üniversitesi Elektrik-Elektronik Mühendisliği 4. sınıf öğrencisiy
 | [Lupus Buck-V1](lupus-buck-v1/) — rover güç kartı | Üretim öncesi | 24 / 12 / 5 V çıkışlı güç kartı, KiCad şema ve PCB, tasarım hesapları, LTspice sonuçları |
 | [Lupus Rover Bataryaları](lupus-bataryalar/) — takım arkadaşımla | Araçta kullanılıyor | 12S8P (36 Ah, 21700) ve 7S7P (18,2 Ah, 18650) Li-ion paketler, Daly BMS, CAN üzerinden izleme |
 | [Lupus Rover CAN Haberleşmesi](lupus-rover-can/) | Araçta çalışıyor | Here4 GPS, Daly BMS, ODrive, STM32, ESP32 ve Jetson Orin'li 250 kbit/s CAN hattı; ESP32 ana düğüm kodu, mesaj tablosu, DroneCAN kütüphane yaması |
+| [Lupus İHA](lupus-iha/) — 6 motorlu heksakopter | Uçtu, videolu | Orange Cube, ArduPilot, Mission Planner; elektronik montaj, kalibrasyon, Stabilize ve Loiter uçuşları |
 
 Klasörlerin yapısı: `README.md` (projenin özeti ve sonuçları), `firmware/` (kod), `hardware/` (şema ve PCB, varsa) ve `images/` (fotoğraflar, ölçümler).
 
