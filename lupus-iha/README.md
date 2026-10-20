@@ -22,4 +22,6 @@ Takım için hazır bileşenlerden toplanan 6 motorlu bir İHA (heksakopter).
 ## Uçuş videosu (sessiz, 81 s)
 <a href="video/ucus.mp4"><img src="images/video_kapak.jpg" width="240"></a>
 
+<img src="images/iha.jpg" width="320">
+
 [`video/ucus.mp4`](video/ucus.mp4): gece uçuşu, araç alçak irtifada uçuyor ve konum tutuyor.
