@@ -2,9 +2,9 @@
 
 **Durum:** Çalışır prototip · Elektronik Devre Tasarımı dersi · 2 kişilik ekip (tasarım ve üretimin büyük bölümü bende) · SUTİS 2025'te sunuldu
 
-240 W, 24 V fırçalı DC motoru Arduino Uno ile süren kart.
+240 W, 24 V fırçalı DC motoru Arduino Uno ile süren kart. Hız potansiyometreyle, yön anahtarla seçiliyor.
 
-**Sempozyum:** Selçuk Üniversitesi 4. Uluslararası Teknoloji ve İnovasyon Öğrenci Sempozyumu (SUTİS 2025, 27–30 Kasım 2025, Konya). Bildiri: *DC Motor Sürücü Tasarımı*, M. E. Yumrukaya (1. yazar), J. A. M. Al-Deyam. [Bildiri (PDF)](docs/SUTIS_2025_bildiri.pdf), sempozyumda sunulan IR2104'lü N-N tasarımı anlatıyor. Hız potansiyometreyle, yön anahtarla seçiliyor.
+**Sempozyum:** Selçuk Üniversitesi 4. Uluslararası Teknoloji ve İnovasyon Öğrenci Sempozyumu (SUTİS 2025, 27–30 Kasım 2025, Konya). Bildiri: *DC Motor Sürücü Tasarımı*, M. E. Yumrukaya (1. yazar), J. A. M. Al-Deyam. [Bildiri (PDF)](docs/SUTIS_2025_bildiri.pdf), sempozyumda sunulan IR2104'lü N-N tasarımı anlatıyor.
 
 <p>
   <img src="images/kart.jpg" width="260">
